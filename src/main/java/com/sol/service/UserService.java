@@ -8,9 +8,12 @@ import com.sol.vo.UserVO;
 public class UserService {
 	private UserRepository repo;
 	
-	public UserService() {}
+	
 	
 	public UserService(UserRepository repo) {
+		if(repo == null) {
+			throw new RuntimeException("Repository cannot be null");
+		}
 		this.repo = repo;
 	}
 	

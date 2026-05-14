@@ -7,18 +7,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sol.cn.ConnectionProvider;
-import com.sol.cn.JDBCConnectionProvider;
 import com.sol.vo.UserVO;
 
 public class JDBCUserRepository implements UserRepository{
 	
-	private final ConnectionProvider<Connection> provider;
+	private ConnectionProvider<Connection> provider;
 	
-	public JDBCUserRepository() {
-		String url = "jdbc:postgresql://localhost:5432/postgres";
-		String username = "postgres";
-		String password = "rahul";
-		this.provider = new JDBCConnectionProvider(url, username, password);
+	public JDBCUserRepository() {}
+	
+	public JDBCUserRepository(ConnectionProvider<Connection> provider) {
+		this.provider = provider;
+	}
+	
+	
+	
+
+	public ConnectionProvider<Connection> getProvider() {
+		return provider;
+	}
+
+	public void setProvider(ConnectionProvider<Connection> provider) {
+		this.provider = provider;
 	}
 
 	@Override
