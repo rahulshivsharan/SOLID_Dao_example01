@@ -3,33 +3,28 @@ package com.sol.repo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.sol.cn.ConnectionProvider;
+import com.sol.exception.UserRepositoryException;
 import com.sol.vo.UserVO;
 
 public class JDBCUserRepository implements UserRepository{
 	
 	private ConnectionProvider<Connection> provider;
 	
-	public JDBCUserRepository() {}
+	
 	
 	public JDBCUserRepository(ConnectionProvider<Connection> provider) {
+		if(provider == null) {
+			throw new IllegalArgumentException("Povider cannot be null");
+		}
 		this.provider = provider;
 	}
 	
 	
-	
-
-	public ConnectionProvider<Connection> getProvider() {
-		return provider;
-	}
-
-	public void setProvider(ConnectionProvider<Connection> provider) {
-		this.provider = provider;
-	}
-
 	@Override
 	public void saveUser() {
 		// TODO Auto-generated method stub
@@ -52,8 +47,10 @@ public class JDBCUserRepository implements UserRepository{
 			}
 			
 			return userList;
-		}catch(Exception e) {
-			throw new RuntimeException("Failed to fetch users "+e.getMessage());
+		}catch(SQLException sqle) {
+			throw new UserRepositoryException("Failed to fetch users from database", sqle);
+		} catch(Exception e) {
+			throw new UserRepositoryException("Failed to fetch users", e);
 		}finally {
 			provider.releaseConnection(con);
 		}	

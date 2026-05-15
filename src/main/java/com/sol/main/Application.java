@@ -19,16 +19,18 @@ public class Application {
 	
 	private static void getUsersFromJDBC() {
 		
-		DatabaseConfig dbconfig = new DatabaseConfig( "jdbc:postgresql://localhost:5432/postgres", 
-													"postgres", 
-													"rahul");
+		DatabaseConfig dbconfig = new DatabaseConfig( 
+			"jdbc:postgresql://localhost:5432/postgres", 
+			"postgres", 
+			"rahul"
+		);
 		
 		ConnectionProvider<Connection> provider = new JDBCConnectionProvider(	dbconfig.getUrl(), 
 																				dbconfig.getUsername(),
 																				dbconfig.getPassword());
 		
-		JDBCUserRepository repo = (JDBCUserRepository) UserRepoFactory.getInstance("JDBC");
-		repo.setProvider(provider);
+		JDBCUserRepository repo = (JDBCUserRepository) UserRepoFactory.getInstance("JDBC", provider);
+		
 		
 		UserService service = new UserService(repo);
 		
@@ -40,8 +42,8 @@ public class Application {
 		String persistenceUnitName = "demoApp";
 		ConnectionProvider<EntityManager> provider = new JPAConnectionProvider(persistenceUnitName);
 		
-		JPAUserRepository repo = (JPAUserRepository) UserRepoFactory.getInstance("JPA");
-		repo.setProvider(provider);
+		JPAUserRepository repo = (JPAUserRepository) UserRepoFactory.getInstance("JPA", provider);
+		
 		
 		UserService service = new UserService(repo);
 		

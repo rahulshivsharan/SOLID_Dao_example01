@@ -11,6 +11,7 @@ public class JDBCConnectionProvider implements ConnectionProvider<Connection>{
 	private final String url;
 	private final String user;
 	private final String password;
+	
 
 	public JDBCConnectionProvider(String url, String user, String password) {
 		this.url = url;
