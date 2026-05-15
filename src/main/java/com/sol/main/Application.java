@@ -10,8 +10,7 @@ import com.sol.cn.JDBCConnectionProvider;
 import com.sol.cn.JPAConnectionProvider;
 import com.sol.config.DatabaseConfig;
 import com.sol.factory.UserRepoFactory;
-import com.sol.repo.JDBCUserRepository;
-import com.sol.repo.JPAUserRepository;
+import com.sol.repo.UserRepository;
 import com.sol.service.UserService;
 import com.sol.vo.UserVO;
 
@@ -29,7 +28,7 @@ public class Application {
 																				dbconfig.getUsername(),
 																				dbconfig.getPassword());
 		
-		JDBCUserRepository repo = (JDBCUserRepository) UserRepoFactory.getInstance("JDBC", provider);
+		UserRepository repo =  UserRepoFactory.getInstance("JDBC", provider);
 		
 		
 		UserService service = new UserService(repo);
@@ -42,7 +41,7 @@ public class Application {
 		String persistenceUnitName = "demoApp";
 		ConnectionProvider<EntityManager> provider = new JPAConnectionProvider(persistenceUnitName);
 		
-		JPAUserRepository repo = (JPAUserRepository) UserRepoFactory.getInstance("JPA", provider);
+		UserRepository repo =  UserRepoFactory.getInstance("JPA", provider);
 		
 		
 		UserService service = new UserService(repo);

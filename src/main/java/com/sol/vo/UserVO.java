@@ -49,10 +49,6 @@ public class UserVO {
 
 	@Override
 	public String toString() {
-		StringBuffer strb = new StringBuffer();
-		strb.append("Student Id \"").append(this.id).append("\", ").append("Student Name \"").append(this.name)
-				.append("\", ").append("Student Password \"").append(this.password).append("\",\n ");
-
-		return strb.toString();
+		return String.format("User Id '%d', User name '%s', user password '%s' \n", this.id, this.name, this.password);
 	}
 }

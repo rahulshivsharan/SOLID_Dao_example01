@@ -1,7 +1,6 @@
 package com.sol.factory;
 
 import java.lang.reflect.Constructor;
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 

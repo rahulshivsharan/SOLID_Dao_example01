@@ -1,9 +1,6 @@
 package com.sol.service;
 
 import java.util.List;
-import java.util.Optional;
-
-import org.hibernate.boot.model.naming.IllegalIdentifierException;
 
 import com.sol.repo.UserRepository;
 import com.sol.vo.UserVO;
@@ -14,9 +11,10 @@ public class UserService {
 	
 	public UserService(UserRepository repo) {
 		
-		this.repo = Optional.of(repo).orElseThrow(() -> {
+		if(repo == null) {
 			throw new IllegalArgumentException("Repository cannot be null");
-		});
+		}
+		this.repo = repo;
 	}
 	
 	public List<UserVO> getUsers(){
